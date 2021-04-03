@@ -60,6 +60,10 @@ if(OQS_ENABLE_SIG_SPHINCS)
     set(SIG_OBJS ${SIG_OBJS} ${SPHINCS_OBJS})
 endif()
 ##### OQS_COPY_FROM_UPSTREAM_FRAGMENT_ADD_ALG_OBJECTS_END
+if(OQS_ENABLE_KEM_LEDACRYPT)
+    add_subdirectory(kem/ledacrypt)
+    set(KEM_OBJS ${KEM_OBJS} ${LEDACRYPT_OBJS})
+endif()
 
 add_library(oqs kem/kem.c
                 ${KEM_OBJS}

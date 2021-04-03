@@ -74,6 +74,9 @@
 #cmakedefine OQS_ENABLE_KEM_sike_p751 1
 #cmakedefine OQS_ENABLE_KEM_sike_p751_compressed 1
 
+#cmakedefine OQS_ENABLE_KEM_LEDACRYPT 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_23371 1
+
 #cmakedefine OQS_ENABLE_SIG_PICNIC 1
 #cmakedefine OQS_ENABLE_SIG_picnic_L1_UR 1
 #cmakedefine OQS_ENABLE_SIG_picnic_L1_FS 1

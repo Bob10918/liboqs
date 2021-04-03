@@ -12,6 +12,7 @@
 /src/kem/kyber @jschanck
 /src/kem/ntru @jschanck
 /src/kem/sike @christianpaquin
+/src/kem/ledacrypt @Bob10918
 /src/oqsconfig.h.cmake @xvzcf
 /src/sig/dilithium @bhess
 /src/sig/picnic @christianpaquin

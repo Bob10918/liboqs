@@ -151,6 +151,8 @@ extern "C" {
 #define OQS_KEM_alg_sike_p751 "SIKE-p751"
 /** Algorithm identifier for SIKE p751 compressed KEM. */
 #define OQS_KEM_alg_sike_p751_compressed "SIKE-p751-compressed"
+/** Algorithm identifier for LEDAcrypt-23371 KEM. */
+#define OQS_KEM_alg_ledacrypt_23371 "LEDAcrypt-23371"
 // EDIT-WHEN-ADDING-KEM
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_START
 /** Number of algorithm identifiers above. */
@@ -354,6 +356,9 @@ OQS_API void OQS_KEM_free(OQS_KEM *kem);
 #ifdef OQS_ENABLE_KEM_SIDH
 #include <oqs/kem_sike.h>
 #endif /* OQS_ENABLE_KEM_SIDH */
+#ifdef OQS_ENABLE_KEM_LEDACRYPT
+#include <oqs/kem_ledacrypt.h>
+#endif /* OQS_ENABLE_KEM_LEDACRYPT */
 // EDIT-WHEN-ADDING-KEM
 
 #if defined(__cplusplus)

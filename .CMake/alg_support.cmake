@@ -56,6 +56,9 @@ cmake_dependent_option(OQS_ENABLE_KEM_sidh_p610_compressed "" ON "OQS_ENABLE_KEM
 cmake_dependent_option(OQS_ENABLE_KEM_sidh_p751 "" ON "OQS_ENABLE_KEM_SIDH" OFF)
 cmake_dependent_option(OQS_ENABLE_KEM_sidh_p751_compressed "" ON "OQS_ENABLE_KEM_SIDH" OFF)
 
+option(OQS_ENABLE_KEM_LEDACRYPT "" ON)
+cmake_dependent_option(OQS_ENABLE_KEM_ledacrypt_23371 "" ON "OQS_ENABLE_KEM_LEDACRYPT" OFF)
+
 option(OQS_ENABLE_SIG_PICNIC "" ON)
 cmake_dependent_option(OQS_ENABLE_SIG_picnic_L1_UR "" ON "OQS_ENABLE_SIG_PICNIC" OFF)
 cmake_dependent_option(OQS_ENABLE_SIG_picnic_L1_FS "" ON "OQS_ENABLE_SIG_PICNIC" OFF)

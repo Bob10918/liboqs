@@ -75,6 +75,7 @@ OQS_API const char *OQS_KEM_alg_identifier(size_t i) {
 		OQS_KEM_alg_sike_p503_compressed,
 		OQS_KEM_alg_sike_p610_compressed,
 		OQS_KEM_alg_sike_p751_compressed,
+        OQS_KEM_alg_ledacrypt_23371,
 	};
 	if (i >= OQS_KEM_algs_length) {
 		return NULL;
@@ -443,6 +444,12 @@ OQS_API int OQS_KEM_alg_is_enabled(const char *method_name) {
 #else
 		return 0;
 #endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_23371)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_23371
+        return 1;
+#else
+        return 0;
+#endif
 		// EDIT-WHEN-ADDING-KEM
 	} else {
 		return 0;
@@ -804,6 +811,12 @@ OQS_API OQS_KEM *OQS_KEM_new(const char *method_name) {
 		return OQS_KEM_sike_p751_compressed_new();
 #else
 		return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_23371)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_23371
+        return OQS_KEM_ledacrypt_23371_new();
+#else
+        return NULL;
 #endif
 		// EDIT-WHEN-ADDING-KEM
 	} else {
