@@ -156,7 +156,7 @@ extern "C" {
 // EDIT-WHEN-ADDING-KEM
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_START
 /** Number of algorithm identifiers above. */
-#define OQS_KEM_algs_length 59
+#define OQS_KEM_algs_length 60
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_END
 
 /**
@@ -360,7 +360,6 @@ OQS_API void OQS_KEM_free(OQS_KEM *kem);
 #include <oqs/kem_ledacrypt.h>
 #endif /* OQS_ENABLE_KEM_LEDACRYPT */
 // EDIT-WHEN-ADDING-KEM
-
 #if defined(__cplusplus)
 } // extern "C"
 #endif
