@@ -7,14 +7,17 @@
 
 /* The second threshold is updated before decoding retrieving it from the
  * private key field secondIterThreshold*/
-int OQS_KEM_LEDACRYPT_23371_CLEAN_thresholds[2] = {B0, (V) / 2 + 1};
+int OQS_KEM_LEDACRYPT_23371_CLEAN_thresholds[2] = {B0, (V)/2+1};
 
 
 int OQS_KEM_LEDACRYPT_23371_CLEAN_bf_decoding(DIGIT out[], // N0 polynomials
-                                             const POSITION_T HtrPosOnes[N0][V],
-                                             DIGIT privateSyndrome[]  //  1 polynomial
+                              const POSITION_T HtrPosOnes[N0][V],
+                              DIGIT privateSyndrome[]  //  1 polynomial
 )
 {
+#if P < 64
+#error The circulant block size should exceed 64
+#endif
 
    uint8_t unsatParityChecks[N0*P];
    DIGIT currSyndrome[NUM_DIGITS_GF2X_ELEMENT];
@@ -34,10 +37,8 @@ int OQS_KEM_LEDACRYPT_23371_CLEAN_bf_decoding(DIGIT out[], // N0 polynomials
             }
          }
       }
-
       /* iteration based threshold determination*/
       int corrt_syndrome_based= OQS_KEM_LEDACRYPT_23371_CLEAN_thresholds[iteration];
-
       //Computation of correlation  with a full Q matrix
       for (int i = 0; i < N0; i++) {
          for (int j = 0; j < P; j++) {

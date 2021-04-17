@@ -7,8 +7,8 @@
 /*----------------------------------------------------------------------------*/
 
 void OQS_KEM_LEDACRYPT_23371_CLEAN_decrypt_niederreiter_indcca2(unsigned char *const ss,
-                                                               const unsigned char *const ct,
-                                                               const privateKeyNiederreiter_t *const sk);
+                                                const unsigned char *const ct,
+                                                const privateKeyNiederreiter_t *const sk);
 
 /*----------------------------------------------------------------------------*/
 

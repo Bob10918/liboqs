@@ -153,10 +153,44 @@ extern "C" {
 #define OQS_KEM_alg_sike_p751_compressed "SIKE-p751-compressed"
 /** Algorithm identifier for LEDAcrypt-23371 KEM. */
 #define OQS_KEM_alg_ledacrypt_23371 "LEDAcrypt-23371"
+/** Algorithm identifier for LEDAcrypt-16067 KEM. */
+#define OQS_KEM_alg_ledacrypt_16067 "LEDAcrypt-16067"
+/** Algorithm identifier for LEDAcrypt-13397 KEM. */
+#define OQS_KEM_alg_ledacrypt_13397 "LEDAcrypt-13397"
+/** Algorithm identifier for LEDAcrypt-28277 KEM. */
+#define OQS_KEM_alg_ledacrypt_28277 "LEDAcrypt-28277"
+/** Algorithm identifier for LEDAcrypt-19709 KEM. */
+#define OQS_KEM_alg_ledacrypt_19709 "LEDAcrypt-19709"
+/** Algorithm identifier for LEDAcrypt-16229 KEM. */
+#define OQS_KEM_alg_ledacrypt_16229 "LEDAcrypt-16229"
+/** Algorithm identifier for LEDAcrypt-40787 KEM. */
+#define OQS_KEM_alg_ledacrypt_40787 "LEDAcrypt-40787"
+/** Algorithm identifier for LEDAcrypt-28411 KEM. */
+#define OQS_KEM_alg_ledacrypt_28411 "LEDAcrypt-28411"
+/** Algorithm identifier for LEDAcrypt-22901 KEM. */
+#define OQS_KEM_alg_ledacrypt_22901 "LEDAcrypt-22901"
+/** Algorithm identifier for LEDAcrypt-52667 KEM. */
+#define OQS_KEM_alg_ledacrypt_52667 "LEDAcrypt-52667"
+/** Algorithm identifier for LEDAcrypt-36629 KEM. */
+#define OQS_KEM_alg_ledacrypt_36629 "LEDAcrypt-36629"
+/** Algorithm identifier for LEDAcrypt-30803 KEM. */
+#define OQS_KEM_alg_ledacrypt_30803 "LEDAcrypt-30803"
+/** Algorithm identifier for LEDAcrypt-61717 KEM. */
+#define OQS_KEM_alg_ledacrypt_61717 "LEDAcrypt-61717"
+/** Algorithm identifier for LEDAcrypt-42677 KEM. */
+#define OQS_KEM_alg_ledacrypt_42677 "LEDAcrypt-42677"
+/** Algorithm identifier for LEDAcrypt-35507 KEM. */
+#define OQS_KEM_alg_ledacrypt_35507 "LEDAcrypt-35507"
+/** Algorithm identifier for LEDAcrypt-83579 KEM. */
+#define OQS_KEM_alg_ledacrypt_83579 "LEDAcrypt-83579"
+/** Algorithm identifier for LEDAcrypt-58171 KEM. */
+#define OQS_KEM_alg_ledacrypt_58171 "LEDAcrypt-58171"
+/** Algorithm identifier for LEDAcrypt-48371 KEM. */
+#define OQS_KEM_alg_ledacrypt_48371 "LEDAcrypt-48371"
 // EDIT-WHEN-ADDING-KEM
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_START
 /** Number of algorithm identifiers above. */
-#define OQS_KEM_algs_length 60
+#define OQS_KEM_algs_length 77
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_END
 
 /**

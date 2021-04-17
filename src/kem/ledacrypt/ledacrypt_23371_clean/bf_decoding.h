@@ -6,9 +6,9 @@
 #define  ITERATIONS_MAX   (2)
 
 int OQS_KEM_LEDACRYPT_23371_CLEAN_bf_decoding(DIGIT err[],
-                                             const POSITION_T HtrPosOnes[N0][V],
-                                             DIGIT privateSyndrome[]       //  1 polynomial  -- param. in/out
-);
+                              const POSITION_T HtrPosOnes[N0][V],
+                              DIGIT privateSyndrome[]       //  1 polynomial  -- param. in/out
+                              );
 /* OQS_KEM_LEDACRYPT_23371_CLEAN_thresholds and tbars for imaxin = 0imaxout = 2 CCA ledadecoder */
 #define T_BAR 10
 #define B0 39

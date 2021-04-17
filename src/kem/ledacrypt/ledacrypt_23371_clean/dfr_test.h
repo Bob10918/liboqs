@@ -5,6 +5,6 @@
 #include "gf2x_limbs.h"
 
 int OQS_KEM_LEDACRYPT_23371_CLEAN_DFR_test(POSITION_T LSparse[N0][V],
-                                          uint8_t *secondIterThreshold);
+                           uint8_t *secondIterThreshold);
 
 #endif

@@ -76,6 +76,24 @@
 
 #cmakedefine OQS_ENABLE_KEM_LEDACRYPT 1
 #cmakedefine OQS_ENABLE_KEM_ledacrypt_23371 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_16067 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_13397 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_28277 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_19709 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_16229 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_40787 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_28411 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_22901 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_52667 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_36629 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_30803 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_61717 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_42677 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_35507 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_83579 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_58171 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_48371 1
+
 
 #cmakedefine OQS_ENABLE_SIG_PICNIC 1
 #cmakedefine OQS_ENABLE_SIG_picnic_L1_UR 1
