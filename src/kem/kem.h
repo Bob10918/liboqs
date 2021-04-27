@@ -187,10 +187,28 @@ extern "C" {
 #define OQS_KEM_alg_ledacrypt_58171 "LEDAcrypt-58171"
 /** Algorithm identifier for LEDAcrypt-48371 KEM. */
 #define OQS_KEM_alg_ledacrypt_48371 "LEDAcrypt-48371"
+/** Algorithm identifier for LEDAcrypt-CPA-10883 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_10883 "LEDAcrypt-CPA-10883"
+/** Algorithm identifier for LEDAcrypt-CPA-8237 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_8237 "LEDAcrypt-CPA-8237"
+/** Algorithm identifier for LEDAcrypt-CPA-7187 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_7187 "LEDAcrypt-CPA-7187"
+/** Algorithm identifier for LEDAcrypt-CPA-21011 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_21011 "LEDAcrypt-CPA-21011"
+/** Algorithm identifier for LEDAcrypt-CPA-15373 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_15373 "LEDAcrypt-CPA-15373"
+/** Algorithm identifier for LEDAcrypt-CPA-13109 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_13109 "LEDAcrypt-CPA-13109"
+/** Algorithm identifier for LEDAcrypt-CPA-35339 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_35339 "LEDAcrypt-CPA-35339"
+/** Algorithm identifier for LEDAcrypt-CPA-25603 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_25603 "LEDAcrypt-CPA-25603"
+/** Algorithm identifier for LEDAcrypt-CPA-21611 KEM. */
+#define OQS_KEM_alg_ledacrypt_cpa_21611 "LEDAcrypt-CPA-21611"
 // EDIT-WHEN-ADDING-KEM
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_START
 /** Number of algorithm identifiers above. */
-#define OQS_KEM_algs_length 77
+#define OQS_KEM_algs_length 86
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_END
 
 /**

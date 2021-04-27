@@ -92,7 +92,16 @@ OQS_API const char *OQS_KEM_alg_identifier(size_t i) {
         OQS_KEM_alg_ledacrypt_35507,
         OQS_KEM_alg_ledacrypt_83579,
         OQS_KEM_alg_ledacrypt_58171,
-        OQS_KEM_alg_ledacrypt_48371
+        OQS_KEM_alg_ledacrypt_48371,
+        OQS_KEM_alg_ledacrypt_cpa_10883,
+        OQS_KEM_alg_ledacrypt_cpa_8237,
+        OQS_KEM_alg_ledacrypt_cpa_7187,
+        OQS_KEM_alg_ledacrypt_cpa_21011,
+        OQS_KEM_alg_ledacrypt_cpa_15373,
+        OQS_KEM_alg_ledacrypt_cpa_13109,
+        OQS_KEM_alg_ledacrypt_cpa_35339,
+        OQS_KEM_alg_ledacrypt_cpa_25603,
+        OQS_KEM_alg_ledacrypt_cpa_21611
 	};
 	if (i >= OQS_KEM_algs_length) {
 		return NULL;
@@ -569,6 +578,60 @@ OQS_API int OQS_KEM_alg_is_enabled(const char *method_name) {
 #else
         return 0;
 #endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_10883)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_10883
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_8237)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_8237
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_7187)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_7187
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_21011)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_21011
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_15373)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_15373
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_13109)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_13109
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_35339)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_35339
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_25603)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_25603
+        return 1;
+#else
+        return 0;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_21611)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_21611
+        return 1;
+#else
+        return 0;
+#endif
 		// EDIT-WHEN-ADDING-KEM
 	} else {
 		return 0;
@@ -1036,6 +1099,60 @@ OQS_API OQS_KEM *OQS_KEM_new(const char *method_name) {
     } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_48371)) {
 #ifdef OQS_ENABLE_KEM_ledacrypt_48371
         return OQS_KEM_ledacrypt_48371_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_10883)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_10883
+        return OQS_KEM_ledacrypt_cpa_10883_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_8237)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_8237
+        return OQS_KEM_ledacrypt_cpa_8237_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_7187)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_7187
+        return OQS_KEM_ledacrypt_cpa_7187_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_21011)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_21011
+        return OQS_KEM_ledacrypt_cpa_21011_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_15373)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_15373
+        return OQS_KEM_ledacrypt_cpa_15373_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_13109)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_13109
+        return OQS_KEM_ledacrypt_cpa_13109_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_35339)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_35339
+        return OQS_KEM_ledacrypt_cpa_35339_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_25603)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_25603
+        return OQS_KEM_ledacrypt_cpa_25603_new();
+#else
+        return NULL;
+#endif
+    } else if (0 == strcasecmp(method_name, OQS_KEM_alg_ledacrypt_cpa_21611)) {
+#ifdef OQS_ENABLE_KEM_ledacrypt_cpa_21611
+        return OQS_KEM_ledacrypt_cpa_21611_new();
 #else
         return NULL;
 #endif

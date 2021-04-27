@@ -20,7 +20,7 @@
 #define  OQS_KEM_LEDACRYPT_19709_CLEAN_CRYPTO_BYTES 32        //HASH_BYTE_LENGTH
 
 /*size in bytes of the ciphertext*/
-#define  OQS_KEM_LEDACRYPT_19709_CLEAN_CRYPTO_CIPHERTEXTBYTES 2488     // [(P+DIGIT_b-1)/DIGIT_b]]*DIGIT_SIZE_B+PQCLEAN_LEDACRYPTXXXX_CLEAN_CRYPTO_RANDOMBYTES)
+#define  OQS_KEM_LEDACRYPT_19709_CLEAN_CRYPTO_CIPHERTEXTBYTES 2488
 
 
 /* Generates a keypair - pk is the public key and sk is the secret key. */

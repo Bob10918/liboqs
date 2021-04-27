@@ -93,6 +93,15 @@
 #cmakedefine OQS_ENABLE_KEM_ledacrypt_83579 1
 #cmakedefine OQS_ENABLE_KEM_ledacrypt_58171 1
 #cmakedefine OQS_ENABLE_KEM_ledacrypt_48371 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_10883 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_8237 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_7187 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_21011 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_15373 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_13109 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_35339 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_25603 1
+#cmakedefine OQS_ENABLE_KEM_ledacrypt_cpa_21611 1
 
 
 #cmakedefine OQS_ENABLE_SIG_PICNIC 1
