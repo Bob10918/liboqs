@@ -79,6 +79,8 @@ if(OQS_USE_OPENSSL)
     target_include_directories(oqs PUBLIC ${OPENSSL_INCLUDE_DIR})
 endif()
 
+target_link_libraries(oqs PUBLIC m keccak)
+
 set_target_properties(oqs
     PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib"

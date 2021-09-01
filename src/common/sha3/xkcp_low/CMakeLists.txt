@@ -29,5 +29,9 @@ else()
   set(_XKCP_LOW_INCLUDE_DIRS ${_XKCP_LOW_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/KeccakP-1600times4/serial)
 endif()
 
+target_link_libraries(xkcp_low_keccakp_1600_avx2 PUBLIC keccak)
+target_link_libraries(xkcp_low_keccakp_1600times4_avx2 PUBLIC keccak)
+
+
 set(XKCP_LOW_OBJS ${_XKCP_LOW_OBJS} PARENT_SCOPE)
 set(XKCP_LOW_INCLUDE_DIRS ${_XKCP_LOW_INCLUDE_DIRS} PARENT_SCOPE)
