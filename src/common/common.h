@@ -75,6 +75,11 @@ extern "C" {
 #define OQS_API __attribute__((visibility("default")))
 #endif
 
+#if defined(OQS_SYS_UEFI)
+#undef OQS_API
+#define OQS_API
+#endif
+
 /**
  * Represents return values from functions.
  *
@@ -104,6 +109,7 @@ typedef enum {
 typedef enum {
 	OQS_CPU_EXT_INIT, /* Must be first */
 	/* Start extension list */
+	OQS_CPU_EXT_ADX,
 	OQS_CPU_EXT_AES,
 	OQS_CPU_EXT_AVX,
 	OQS_CPU_EXT_AVX2,
@@ -111,6 +117,7 @@ typedef enum {
 	OQS_CPU_EXT_BMI1,
 	OQS_CPU_EXT_BMI2,
 	OQS_CPU_EXT_PCLMULQDQ,
+	OQS_CPU_EXT_VPCLMULQDQ,
 	OQS_CPU_EXT_POPCNT,
 	OQS_CPU_EXT_SSE,
 	OQS_CPU_EXT_SSE2,
@@ -135,6 +142,17 @@ OQS_API int OQS_CPU_has_extension(OQS_CPU_EXT ext);
  * and so has effect only when OQS_DIST_BUILD is set.
  */
 OQS_API void OQS_init(void);
+
+/**
+ * Constant time comparison of byte sequences `a` and `b` of length `len`.
+ * Returns 0 if the byte sequences are equal or if `len`=0.
+ * Returns 1 otherwise.
+ *
+ * @param[in] a A byte sequence of length at least `len`.
+ * @param[in] b A byte sequence of length at least `len`.
+ * @param[in] len The number of bytes to compare.
+ */
+OQS_API int OQS_MEM_secure_bcmp(const void *a, const void *b, size_t len);
 
 /**
  * Zeros out `len` bytes of memory starting at `ptr`.
@@ -186,18 +204,6 @@ void *OQS_MEM_aligned_alloc(size_t alignment, size_t size);
  * Free memory allocated with OQS_MEM_aligned_alloc.
  */
 void OQS_MEM_aligned_free(void *ptr);
-
-/**
- * Macros that indicates a function argument may be unused.  Used to comply with
- * an API specification but when an implementation doesn't actually use the
- * argument and we'd get a compiler warning otherwise.
- */
-#ifdef __GNUC__
-#define UNUSED __attribute__((unused))
-#else
-// __attribute__ not supported in VS
-#define UNUSED
-#endif
 
 #if defined(__cplusplus)
 } // extern "C"

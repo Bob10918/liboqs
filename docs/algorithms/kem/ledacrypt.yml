@@ -1,0 +1,830 @@
+name: LEDAcrypt
+type: kem
+principal-submitters:
+- Marco Baldi
+- Alessandro Barenghi
+- Franco Chiaraluce
+- Gerardo Pelosi
+- Paolo Santini
+crypto-assumption: Low-density parity-check code-based cryptography
+website: https://www.ledacrypt.org/
+nist-round: 2
+spec-version: 3
+spdx-license-identifier: Public domain
+upstream: https://github.com/LEDAcrypt/LEDAcrypt, master, 4b50a4f87c82192db71f10fc33b2c11e94d064ad
+#upstream-ancestors:
+#- SUPERCOP-20191221 "vec" and "avx" implementations
+parameter-sets:
+  - name: LEDAcrypt-23371
+    claimed-nist-level: 1
+    claimed-security: IND-CCA2
+    length-public-key: 2928
+    length-ciphertext: 2952
+    length-secret-key: 50
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-16067
+    claimed-nist-level: 1
+    claimed-security: IND-CCA2
+    length-public-key: 4032
+    length-ciphertext: 2040
+    length-secret-key: 50
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-13397
+    claimed-nist-level: 1
+    claimed-security: IND-CCA2
+    length-public-key: 5040
+    length-ciphertext: 1704
+    length-secret-key: 50
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-28277
+    claimed-nist-level: 1
+    claimed-security: IND-CCA2
+    length-public-key: 3536
+    length-ciphertext: 3560
+    length-secret-key: 50
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-19709
+    claimed-nist-level: 1
+    claimed-security: IND-CCA2
+    length-public-key: 4928
+    length-ciphertext: 2488
+    length-secret-key: 50
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-16229
+    claimed-nist-level: 1
+    claimed-security: IND-CCA2
+    length-public-key: 6096
+    length-ciphertext: 2056
+    length-secret-key: 50
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-40787
+    claimed-nist-level: 3
+    claimed-security: IND-CCA2
+    length-public-key: 5104
+    length-ciphertext: 5136
+    length-secret-key: 66
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-28411
+    claimed-nist-level: 3
+    claimed-security: IND-CCA2
+    length-public-key: 7104
+    length-ciphertext: 3584
+    length-secret-key: 66
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-22901
+    claimed-nist-level: 3
+    claimed-security: IND-CCA2
+    length-public-key: 8592
+    length-ciphertext: 2896
+    length-secret-key: 66
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-52667
+    claimed-nist-level: 3
+    claimed-security: IND-CCA2
+    length-public-key: 6584
+    length-ciphertext: 6616
+    length-secret-key: 66
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-36629
+    claimed-nist-level: 3
+    claimed-security: IND-CCA2
+    length-public-key: 9168
+    length-ciphertext: 4616
+    length-secret-key: 66
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-30803
+    claimed-nist-level: 3
+    claimed-security: IND-CCA2
+    length-public-key: 11568
+    length-ciphertext: 3888
+    length-secret-key: 66
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-61717
+    claimed-nist-level: 5
+    claimed-security: IND-CCA2
+    length-public-key: 7720
+    length-ciphertext: 7760
+    length-secret-key: 82
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-42677
+    claimed-nist-level: 5
+    claimed-security: IND-CCA2
+    length-public-key: 10672
+    length-ciphertext: 5376
+    length-secret-key: 82
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-35507
+    claimed-nist-level: 5
+    claimed-security: IND-CCA2
+    length-public-key: 13320
+    length-ciphertext: 4480
+    length-secret-key: 82
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-83579
+    claimed-nist-level: 5
+    claimed-security: IND-CCA2
+    length-public-key: 10448
+    length-ciphertext: 10488
+    length-secret-key: 82
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-58171
+    claimed-nist-level: 5
+    claimed-security: IND-CCA2
+    length-public-key: 14544
+    length-ciphertext: 7312
+    length-secret-key: 82
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-48371
+    claimed-nist-level: 5
+    claimed-security: IND-CCA2
+    length-public-key: 18144
+    length-ciphertext: 6088
+    length-secret-key: 82
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-10883
+    claimed-nist-level: 1
+    claimed-security: IND-CPA
+    length-public-key: 1368
+    length-ciphertext: 1392
+    length-secret-key: 1160
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-8237
+    claimed-nist-level: 1
+    claimed-security: IND-CPA
+    length-public-key: 2064
+    length-ciphertext: 1056
+    length-secret-key: 1920
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-7187
+    claimed-nist-level: 1
+    claimed-security: IND-CPA
+    length-public-key: 2712
+    length-ciphertext: 928
+    length-secret-key: 2680
+    length-shared-secret: 32
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-21011
+    claimed-nist-level: 3
+    claimed-security: IND-CPA
+    length-public-key: 2632
+    length-ciphertext: 2664
+    length-secret-key: 1680
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-15373
+    claimed-nist-level: 3
+    claimed-security: IND-CPA
+    length-public-key: 3856
+    length-ciphertext: 1960
+    length-secret-key: 2840
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-13109
+    claimed-nist-level: 3
+    claimed-security: IND-CPA
+    length-public-key: 4920
+    length-ciphertext: 1672
+    length-secret-key: 3968
+    length-shared-secret: 48
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-35339
+    claimed-nist-level: 5
+    claimed-security: IND-CPA
+    length-public-key: 4424
+    length-ciphertext: 4464
+    length-secret-key: 2232
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-25603
+    claimed-nist-level: 5
+    claimed-security: IND-CPA
+    length-public-key: 6416
+    length-ciphertext: 3248
+    length-secret-key: 3760
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+  - name: LEDAcrypt-CPA-21611
+    claimed-nist-level: 5
+    claimed-security: IND-CPA
+    length-public-key: 8112
+    length-ciphertext: 2744
+    length-secret-key: 5256
+    length-shared-secret: 64
+    implementations-switch-on-runtime-cpu-features: true
+    implementations:
+      - upstream-id: clean
+        supported-platforms: all
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: true
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+      - upstream-id: avx2
+        supported-platforms:
+          - architecture: x86_64
+            operating_systems:
+              - Linux
+            required_flags:
+              - avx2
+        common-crypto:
+          - AES: liboqs
+          - SHA3: liboqs
+        no-secret-dependent-branching-claimed: false
+        no-secret-dependent-branching-checked-by-valgrind: true
+        large-stack-usage: true
+
+auxiliary-submitters:
+- Emanuele Pisano

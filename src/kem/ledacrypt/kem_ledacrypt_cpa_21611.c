@@ -16,7 +16,7 @@ OQS_KEM *OQS_KEM_ledacrypt_cpa_21611_new() {
 	kem->alg_version = "https://github.com/Bob10918/LEDAcrypt/commit/b176d7c6821700f5124f591b50ccae9d5f25ee91";
 
 	kem->claimed_nist_level = 5;
-	kem->ind_cca = true;
+	kem->ind_cca = false;
 
 	kem->length_public_key = OQS_KEM_ledacrypt_cpa_21611_length_public_key;
 	kem->length_secret_key = OQS_KEM_ledacrypt_cpa_21611_length_secret_key;

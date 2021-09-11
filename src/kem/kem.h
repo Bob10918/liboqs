@@ -31,16 +31,10 @@
 extern "C" {
 #endif
 
-/** Algorithm identifier for default KEM algorithm. */
-#define OQS_KEM_alg_default "DEFAULT"
-/** Algorithm identifier for BIKE1-L1-CPA KEM. */
-#define OQS_KEM_alg_bike1_l1_cpa "BIKE1-L1-CPA"
-/** Algorithm identifier for BIKE1-L3-CPA KEM. */
-#define OQS_KEM_alg_bike1_l3_cpa "BIKE1-L3-CPA"
-/** Algorithm identifier for BIKE1-L1-FO KEM. */
-#define OQS_KEM_alg_bike1_l1_fo "BIKE1-L1-FO"
-/** Algorithm identifier for BIKE1-L3-FO KEM. */
-#define OQS_KEM_alg_bike1_l3_fo "BIKE1-L3-FO"
+/** Algorithm identifier for BIKE-L1 KEM (Round-3). */
+#define OQS_KEM_alg_bike_l1 "BIKE-L1"
+/** Algorithm identifier for BIKE-L3 KEM (Round-3). */
+#define OQS_KEM_alg_bike_l3 "BIKE-L3"
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALG_IDENTIFIER_START
 /** Algorithm identifier for Classic-McEliece-348864 KEM. */
 #define OQS_KEM_alg_classic_mceliece_348864 "Classic-McEliece-348864"
@@ -208,7 +202,7 @@ extern "C" {
 // EDIT-WHEN-ADDING-KEM
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_START
 /** Number of algorithm identifiers above. */
-#define OQS_KEM_algs_length 86
+#define OQS_KEM_algs_length 83
 ///// OQS_COPY_FROM_UPSTREAM_FRAGMENT_ALGS_LENGTH_END
 
 /**
@@ -310,7 +304,7 @@ typedef struct OQS_KEM {
 	 * @param[in] secret_key The secret key represented as a byte string.
 	 * @return OQS_SUCCESS or OQS_ERROR
 	 */
-	OQS_STATUS (*decaps)(uint8_t *shared_secret, const unsigned char *ciphertext, const uint8_t *secret_key);
+	OQS_STATUS (*decaps)(uint8_t *shared_secret, const uint8_t *ciphertext, const uint8_t *secret_key);
 
 } OQS_KEM;
 
@@ -367,7 +361,7 @@ OQS_API OQS_STATUS OQS_KEM_encaps(const OQS_KEM *kem, uint8_t *ciphertext, uint8
  * @param[in] secret_key The secret key represented as a byte string.
  * @return OQS_SUCCESS or OQS_ERROR
  */
-OQS_API OQS_STATUS OQS_KEM_decaps(const OQS_KEM *kem, uint8_t *shared_secret, const unsigned char *ciphertext, const uint8_t *secret_key);
+OQS_API OQS_STATUS OQS_KEM_decaps(const OQS_KEM *kem, uint8_t *shared_secret, const uint8_t *ciphertext, const uint8_t *secret_key);
 
 /**
  * Frees an OQS_KEM object that was constructed by OQS_KEM_new.
@@ -412,6 +406,7 @@ OQS_API void OQS_KEM_free(OQS_KEM *kem);
 #include <oqs/kem_ledacrypt.h>
 #endif /* OQS_ENABLE_KEM_LEDACRYPT */
 // EDIT-WHEN-ADDING-KEM
+
 #if defined(__cplusplus)
 } // extern "C"
 #endif

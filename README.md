@@ -1,4 +1,4 @@
-[AppVeyor](https://ci.appveyor.com/project/dstebila/liboqs): ![Build status image](https://ci.appveyor.com/api/projects/status/9d2ts78x88r8wnii/branch/main?svg=true), [CircleCI](https://circleci.com/gh/open-quantum-safe/liboqs/tree/main): ![Build status image](https://circleci.com/gh/open-quantum-safe/liboqs/tree/main.svg?style=svg)
+[AppVeyor](https://ci.appveyor.com/project/dstebila/liboqs): ![Build status image](https://ci.appveyor.com/api/projects/status/9d2ts78x88r8wnii/branch/main?svg=true), [CircleCI](https://circleci.com/gh/open-quantum-safe/liboqs/tree/main): ![Build status image](https://circleci.com/gh/open-quantum-safe/liboqs/tree/main.svg?style=svg), [TravisCI](https://travis-ci.com/github/open-quantum-safe/liboqs): [![Build Status](https://travis-ci.com/open-quantum-safe/liboqs.svg?branch=main)](https://travis-ci.com/open-quantum-safe/liboqs)
 
 liboqs
 ======================
@@ -34,31 +34,35 @@ More information on OQS can be found [here](https://openquantumsafe.org/) and in
 
 ### Supported Algorithms
 
-Details on each supported algorithm can be found in the [docs/algorithms folder](https://github.com/open-quantum-safe/liboqs/tree/main/docs/algorithms).
+Details on each supported algorithm can be found in the [docs/algorithms](https://github.com/open-quantum-safe/liboqs/tree/main/docs/algorithms) folder.
 
 #### Key encapsulation mechanisms
 
-- **BIKE**: BIKE1-L1-CPA, BIKE1-L3-CPA, BIKE1-L1-FO, BIKE1-L3-FO
+<!--- OQS_TEMPLATE_FRAGMENT_LIST_KEXS_START -->
+- **BIKE**: BIKE-L1, BIKE-L3
 - **Classic McEliece**: Classic-McEliece-348864†, Classic-McEliece-348864f†, Classic-McEliece-460896†, Classic-McEliece-460896f†, Classic-McEliece-6688128†, Classic-McEliece-6688128f†, Classic-McEliece-6960119†, Classic-McEliece-6960119f†, Classic-McEliece-8192128†, Classic-McEliece-8192128f†
 - **FrodoKEM**: FrodoKEM-640-AES, FrodoKEM-640-SHAKE, FrodoKEM-976-AES, FrodoKEM-976-SHAKE, FrodoKEM-1344-AES, FrodoKEM-1344-SHAKE
-- **HQC**: HQC-128-1-CCA2, HQC-192-1-CCA2, HQC-192-2-CCA2, HQC-256-1-CCA2†, HQC-256-2-CCA2†, HQC-256-3-CCA2†
-- **Kyber**: Kyber512, Kyber768, Kyber1024, Kyber512-90s, Kyber768-90s, Kyber1024-90s
+- **HQC**: HQC-128, HQC-192, HQC-256†
+- **Kyber**: Kyber512, Kyber512-90s, Kyber768, Kyber768-90s, Kyber1024, Kyber1024-90s
 - **NTRU**: NTRU-HPS-2048-509, NTRU-HPS-2048-677, NTRU-HPS-4096-821, NTRU-HRSS-701
 - **NTRU-Prime**: ntrulpr653, ntrulpr761, ntrulpr857, sntrup653, sntrup761, sntrup857
 - **SABER**: LightSaber-KEM, Saber-KEM, FireSaber-KEM
-- **SIKE**: SIDH-p434, SIDH-p503, SIDH-p610, SIDH-p751, SIKE-p434, SIKE-p503, SIKE-p610, SIKE-p751, SIDH-p434-compressed, SIDH-p503-compressed, SIDH-p610-compressed, SIDH-p751-compressed, SIKE-p434-compressed, SIKE-p503-compressed, SIKE-p610-compressed, SIKE-p751-compressed
+- **SIKE**: SIDH-p434, SIDH-p434-compressed, SIDH-p503, SIDH-p503-compressed, SIDH-p610, SIDH-p610-compressed, SIDH-p751, SIDH-p751-compressed, SIKE-p434, SIKE-p434-compressed, SIKE-p503, SIKE-p503-compressed, SIKE-p610, SIKE-p610-compressed, SIKE-p751, SIKE-p751-compressed
+<!--- OQS_TEMPLATE_FRAGMENT_LIST_KEXS_END -->
 
 #### Signature schemes
 
-- **Dilithium**: Dilithium2, Dilithium2-AES, Dilithium3, Dilithium3-AES, Dilithium5, Dilithium5-AES
+<!--- OQS_TEMPLATE_FRAGMENT_LIST_SIGS_START -->
+- **CRYSTALS-Dilithium**: Dilithium2, Dilithium3, Dilithium5, Dilithium2-AES, Dilithium3-AES, Dilithium5-AES
 - **Falcon**: Falcon-512, Falcon-1024
-- **Picnic**: Picnic-L1-FS, Picnic-L1-UR, Picnic-L1-full, Picnic-L3-FS, Picnic-L3-UR, Picnic-L3-full, Picnic-L5-FS, Picnic-L5-UR, Picnic-L5-full, Picnic3-L1, Picnic3-L3, Picnic3-L5
+- **Picnic**: picnic\_L1\_FS, picnic\_L1\_UR, picnic\_L1\_full, picnic\_L3\_FS, picnic\_L3\_UR, picnic\_L3\_full, picnic\_L5\_FS, picnic\_L5\_UR, picnic\_L5\_full, picnic3\_L1, picnic3\_L3, picnic3\_L5
 - **Rainbow**: Rainbow-I-Classic, Rainbow-I-Circumzenithal, Rainbow-I-Compressed, Rainbow-III-Classic†, Rainbow-III-Circumzenithal†, Rainbow-III-Compressed†, Rainbow-V-Classic†, Rainbow-V-Circumzenithal†, Rainbow-V-Compressed†
 - **SPHINCS+-Haraka**: SPHINCS+-Haraka-128f-robust, SPHINCS+-Haraka-128f-simple, SPHINCS+-Haraka-128s-robust, SPHINCS+-Haraka-128s-simple, SPHINCS+-Haraka-192f-robust, SPHINCS+-Haraka-192f-simple, SPHINCS+-Haraka-192s-robust, SPHINCS+-Haraka-192s-simple, SPHINCS+-Haraka-256f-robust, SPHINCS+-Haraka-256f-simple, SPHINCS+-Haraka-256s-robust, SPHINCS+-Haraka-256s-simple
 - **SPHINCS+-SHA256**: SPHINCS+-SHA256-128f-robust, SPHINCS+-SHA256-128f-simple, SPHINCS+-SHA256-128s-robust, SPHINCS+-SHA256-128s-simple, SPHINCS+-SHA256-192f-robust, SPHINCS+-SHA256-192f-simple, SPHINCS+-SHA256-192s-robust, SPHINCS+-SHA256-192s-simple, SPHINCS+-SHA256-256f-robust, SPHINCS+-SHA256-256f-simple, SPHINCS+-SHA256-256s-robust, SPHINCS+-SHA256-256s-simple
 - **SPHINCS+-SHAKE256**: SPHINCS+-SHAKE256-128f-robust, SPHINCS+-SHAKE256-128f-simple, SPHINCS+-SHAKE256-128s-robust, SPHINCS+-SHAKE256-128s-simple, SPHINCS+-SHAKE256-192f-robust, SPHINCS+-SHAKE256-192f-simple, SPHINCS+-SHAKE256-192s-robust, SPHINCS+-SHAKE256-192s-simple, SPHINCS+-SHAKE256-256f-robust, SPHINCS+-SHAKE256-256f-simple, SPHINCS+-SHAKE256-256s-robust, SPHINCS+-SHAKE256-256s-simple
+<!--- OQS_TEMPLATE_FRAGMENT_LIST_SIGS_END -->
 
-Note that algorithms marked with a dagger (†) have large stack usage and may cause failures when run on threads or in constrained environments.
+Note that for algorithms marked with a dagger (†), liboqs contains at least one implementation that uses a large amount of stack space; this may cause failures when run in threads or in constrained environments. For more information, consult the algorithm information sheets in the [docs/algorithms](https://github.com/open-quantum-safe/liboqs/tree/main/docs/algorithms) folder.
 
 ### Limitations and Security
 
@@ -78,13 +82,13 @@ We realize some parties may want to deploy quantum-safe cryptography prior to th
 
 	On Ubuntu:
 
-		 sudo apt install cmake gcc ninja-build libssl-dev python3-pytest python3-pytest-xdist unzip xsltproc doxygen graphviz
+		 sudo apt install astyle cmake gcc ninja-build libssl-dev python3-pytest python3-pytest-xdist unzip xsltproc doxygen graphviz
 
 	On macOS, using a package manager of your choice (we've picked Homebrew):
 
-		brew install cmake ninja openssl@1.1 wget doxygen graphviz
+		brew install cmake ninja openssl@1.1 wget doxygen graphviz astyle
 		pip3 install pytest pytest-xdist
-	
+
 	Note that, if you want liboqs to use OpenSSL for various symmetric crypto algorithms (AES, SHA-2, etc.) then you must have OpenSSL version 1.1.1 or higher.
 
 2. Get the source:
@@ -98,17 +102,11 @@ We realize some parties may want to deploy quantum-safe cryptography prior to th
 		cmake -GNinja ..
 		ninja
 
-Various options can be passed to `cmake` to customize the build. Some of them include:
-
-- `-DOQS_USE_OPENSSL=<val>`: `<val>` can be `ON` or `OFF`; when `ON`, liboqs uses OpenSSL's AES, SHA-2, and SHA-3 implementations.
-- `-DBUILD_SHARED_LIBS=<val>`: `<val>` can be `ON` or `OFF`; when `ON`, CMake generates instructions for building a shared library, otherwise it generates instructions for building a static library.
-- `-DOPENSSL_ROOT_DIR=<dir>`: `<dir>` specifies the directory in which CMake will look for OpenSSL.
-
-All supported options are listed in the `.CMake/alg-support.cmake` file, and can be viewed by running `cmake -LAH ..` in the `build` directory. They are also listed and explained in [the wiki](https://github.com/open-quantum-safe/liboqs/wiki/Customizing-liboqs).
+Various `cmake` build options to customize the resultant artifacts are available and are [documented in the project Wiki](https://github.com/open-quantum-safe/liboqs/wiki/Customizing-liboqs). All supported options are also listed in the `.CMake/alg-support.cmake` file, and can be viewed by running `cmake -LAH ..` in the `build` directory.
 
 The following instructions assume we are in `build`.
 
-3. The main build result is `lib/liboqs.a`, a static library. The public headers are located in the `include` directory. There are also a variety of programs built under the `tests` directory:
+3. By default the main build result is `lib/liboqs.a`, a static library. If you want to build a shared/dynamic library, append [`-DBUILD_SHARED_LIBS=ON`](https://github.com/open-quantum-safe/liboqs/wiki/Customizing-liboqs#build_shared_libs) to the `cmake -GNinja ..` command above and the result will be `lib/liboqs.so|dylib|dll`. The public headers are located in the `include` directory. There are also a variety of programs built under the `tests` directory:
 
 	- `test_kem`: Simple test harness for key encapsulation mechanisms
 	- `test_sig`: Simple test harness for key signature schemes
@@ -123,7 +121,7 @@ The following instructions assume we are in `build`.
 	- `test_aes`, `test_sha3`: Simple test harnesses for crypto sub-components
 	- `test_portability`: Simple test harnesses for checking cross-CPU code portability; requires presence of `qemu`; proper operation validated only on Ubuntu
 
-	The test suite can be run using
+	The complete test suite can be run using
 
 		ninja run_tests
 
@@ -137,29 +135,18 @@ The following instructions assume we are in `build`.
 
 ### Windows
 
-Binaries can be generated using Visual Studio 2019 with the [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) extension installed.
+Binaries can be generated using Visual Studio 2019 with the [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) extension installed. The same options as explained above for Linux/macOS can be used and build artifacts are generated in the specified `build` folders.
+
+If you want to create Visual Studio build files, e.g., if not using `ninja`, be sure to _not_ pass the parameter `-GNinja` to the `cmake` command as exemplified above. You can then build all components using `msbuild`, e.g. as follows: `msbuild ALL_BUILD.vcxproj` and install all artifacts e.g. using this command `msbuild INSTALL.vcxproj`.
+
 
 ### Cross compilation
 
-You can cross compile liboqs for various platform by supplying CMake with an appropriate [toolchain](https://cmake.org/cmake/help/latest/manual/cmake-toolchains.7.html) file.
-
-For example, to cross compile for a Raspberry Pi from Ubuntu Bionic:
-
-	apt install gcc-8-arm-linux-gnueabihf
-	mkdir build && cd build
-	cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../.CMake/toolchain_rasppi.cmake -DOQS_USE_OPENSSL=OFF ..
-	ninja
-	
-Or to compile for Windows AMD64 from Ubuntu Bionic:
-
-	apt install gcc-mingw-w64
-	mkdir build && cd build
-	cmake -GNinja -DCMAKE_TOOLCHAIN_FILE=../.CMake/toolchain_windows-amd64.cmake -DOQS_DIST_BUILD=ON ..
-	ninja
+You can cross compile liboqs for various platforms. Detailed information is available [in the Wiki](https://github.com/open-quantum-safe/liboqs/wiki/Platform-specific-notes-for-building-liboqs#cross-compiling).
 
 ## Documentation
 
-Further information can be found in the [wiki](https://github.com/open-quantum-safe/liboqs/wiki).
+More detailed information on building, optional build parameters, example applications, coding conventions and more can be found in the [wiki](https://github.com/open-quantum-safe/liboqs/wiki).
 
 ## Contributing
 

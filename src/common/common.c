@@ -47,6 +47,7 @@ static void set_available_cpu_extensions(void) {
 	cpu_ext_data[OQS_CPU_EXT_POPCNT] = is_bit_set(leaf_1.ecx, 23);
 	cpu_ext_data[OQS_CPU_EXT_BMI1] = is_bit_set(leaf_7.ebx, 3);
 	cpu_ext_data[OQS_CPU_EXT_BMI2] = is_bit_set(leaf_7.ebx, 8);
+	cpu_ext_data[OQS_CPU_EXT_ADX] = is_bit_set(leaf_7.ebx, 19);
 
 	if (has_mask(xcr0_eax, MASK_XMM)) {
 		cpu_ext_data[OQS_CPU_EXT_SSE] = is_bit_set(leaf_1.edx, 25);
@@ -61,9 +62,36 @@ static void set_available_cpu_extensions(void) {
 		if (avx512f && avx512bw && avx512dq) {
 			cpu_ext_data[OQS_CPU_EXT_AVX512] = 1;
 		}
+		cpu_ext_data[OQS_CPU_EXT_VPCLMULQDQ] = is_bit_set(leaf_7.ecx, 10);
 	}
 }
+#elif defined(OQS_DIST_X86_BUILD)
+static void set_available_cpu_extensions(void) {
+	/* mark that this function has been called */
+	cpu_ext_data[OQS_CPU_EXT_INIT] = 1;
+}
 #elif defined(OQS_DIST_ARM64v8_BUILD)
+#if defined(__APPLE__)
+#include <sys/sysctl.h>
+static unsigned int macos_feature_detection(const char *feature_name) {
+	int p;
+	size_t p_len = sizeof(p);
+	int res = sysctlbyname(feature_name, &p, &p_len, NULL, 0);
+	if (res != 0) {
+		return 0;
+	} else {
+		return (p != 0) ? 1 : 0;
+	}
+}
+static void set_available_cpu_extensions(void) {
+	/* mark that this function has been called */
+	cpu_ext_data[OQS_CPU_EXT_ARM_AES] = 1;
+	cpu_ext_data[OQS_CPU_EXT_ARM_SHA2] = 1;
+	cpu_ext_data[OQS_CPU_EXT_ARM_SHA3] = macos_feature_detection("hw.optional.armv8_2_sha3");
+	cpu_ext_data[OQS_CPU_EXT_ARM_NEON] = macos_feature_detection("hw.optional.neon");
+	cpu_ext_data[OQS_CPU_EXT_INIT] = 1;
+}
+#else
 #include <sys/auxv.h>
 #include <asm/hwcap.h>
 static void set_available_cpu_extensions(void) {
@@ -83,6 +111,7 @@ static void set_available_cpu_extensions(void) {
 		cpu_ext_data[OQS_CPU_EXT_ARM_NEON] = 1;
 	}
 }
+#endif
 #elif defined(OQS_DIST_ARM32v7_BUILD)
 #include <sys/auxv.h>
 #include <asm/hwcap.h>
@@ -100,6 +129,14 @@ static void set_available_cpu_extensions(void) {
 	if (hwcaps & HWCAP_NEON) {
 		cpu_ext_data[OQS_CPU_EXT_ARM_NEON] = 1;
 	}
+}
+#elif defined(OQS_DIST_PPC64LE_BUILD)
+static void set_available_cpu_extensions(void) {
+	/* mark that this function has been called */
+	cpu_ext_data[OQS_CPU_EXT_INIT] = 1;
+}
+#elif defined(OQS_DIST_BUILD)
+static void set_available_cpu_extensions(void) {
 }
 #endif
 
@@ -122,6 +159,18 @@ OQS_API void OQS_init(void) {
 	OQS_CPU_has_extension(OQS_CPU_EXT_INIT);
 #endif
 	return;
+}
+
+OQS_API int OQS_MEM_secure_bcmp(const void *a, const void *b, size_t len) {
+	/* Assume CHAR_BIT = 8 */
+	uint8_t r = 0;
+
+	for (size_t i = 0; i < len; i++) {
+		r |= ((const uint8_t *)a)[i] ^ ((const uint8_t *)b)[i];
+	}
+
+	// We have 0 <= r < 256, and unsigned int is at least 16 bits.
+	return 1 & ((-(unsigned int)r) >> 8);
 }
 
 OQS_API void OQS_MEM_cleanse(void *ptr, size_t len) {
