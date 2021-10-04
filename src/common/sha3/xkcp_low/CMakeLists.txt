@@ -48,8 +48,4 @@ if(BUILD_AVX2 AND CMAKE_SYSTEM_NAME MATCHES "Linux|Darwin")
                                        $<TARGET_OBJECTS:xkcp_low_keccakp_1600times4_avx2>)
 endif()
 
-target_link_libraries(xkcp_low_keccakp_1600_avx2 PUBLIC keccak)
-target_link_libraries(xkcp_low_keccakp_1600times4_avx2 PUBLIC keccak)
-
-
 set(XKCP_LOW_OBJS ${_XKCP_LOW_OBJS} PARENT_SCOPE)

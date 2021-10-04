@@ -100,6 +100,7 @@ elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
     add_compile_options(-Wno-unused-parameter)
     add_compile_options(-Wno-sign-compare)
     add_compile_options(-Wno-aggressive-loop-optimizations)
+    add_compile_options(-Wno-unused-const-variable)
 
     add_compile_options(-Werror)
     add_compile_options(-Wall)

@@ -47,7 +47,387 @@
 
 # -----------------------------------------------------------------------------
 #
-# internal
+# void KeccakP1600_Initialize(void *state);
+#
+.ifdef macOS
+.globl  _KeccakP1600_Initialize
+_KeccakP1600_Initialize:
+.else
+.globl  KeccakP1600_Initialize
+.type   KeccakP1600_Initialize,@function
+KeccakP1600_Initialize:
+.endif
+.balign 32
+    vpxor       %ymm0,%ymm0,%ymm0
+    vmovdqa     %ymm0,0*32(%rdi)
+    vmovdqa     %ymm0,1*32(%rdi)
+    vmovdqa     %ymm0,2*32(%rdi)
+    vmovdqa     %ymm0,3*32(%rdi)
+    vmovdqa     %ymm0,4*32(%rdi)
+    vmovdqa     %ymm0,5*32(%rdi)
+    movq        $0,6*32(%rdi)
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_Initialize,.-KeccakP1600_Initialize
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# void KeccakP1600_AddByte(void *state, unsigned char data, unsigned int offset);
+#                                %rdi                 %rsi               %rdx
+#
+.ifdef macOS
+.globl  _KeccakP1600_AddByte
+_KeccakP1600_AddByte:
+.else
+.globl  KeccakP1600_AddByte
+.type   KeccakP1600_AddByte,@function
+KeccakP1600_AddByte:
+.endif
+.balign 32
+    mov         %rdx, %rax
+    and         $7, %rax
+    and         $0xFFFFFFF8, %edx
+    lea         mapState(%rip), %r9
+    mov         (%r9, %rdx), %rdx
+    add         %rdx, %rdi
+    add         %rax, %rdi
+    xorb        %sil, (%rdi)
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_AddByte,.-KeccakP1600_AddByte
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# void KeccakP1600_AddBytes(void *state, const unsigned char *data, unsigned int offset, unsigned int length);
+#                                %rdi                         %rsi               %rdx                 %rcx
+#
+.ifdef macOS
+.globl  _KeccakP1600_AddBytes
+_KeccakP1600_AddBytes:
+.else
+.globl  KeccakP1600_AddBytes
+.type   KeccakP1600_AddBytes,@function
+KeccakP1600_AddBytes:
+.endif
+.balign 32
+    cmp         $0, %rcx
+    jz          KeccakP1600_AddBytes_Exit
+    mov         %rdx, %rax                              # rax offset in lane
+    and         $0xFFFFFFF8, %edx                       # rdx pointer into state index mapper
+    lea         mapState(%rip), %r9
+    add         %r9, %rdx
+    and         $7, %rax
+    jz          KeccakP1600_AddBytes_LaneAlignedCheck
+    mov         $8, %r9                                 # r9 is (max) length of incomplete lane
+    sub         %rax, %r9
+    cmp         %rcx, %r9
+    cmovae      %rcx, %r9
+    sub         %r9, %rcx                               # length -= length of incomplete lane
+    add         (%rdx), %rax                            # rax = pointer to state lane
+    add         $8, %rdx
+    add         %rdi, %rax
+KeccakP1600_AddBytes_NotAlignedLoop:
+    mov         (%rsi), %r8b
+    inc         %rsi
+    xorb        %r8b, (%rax)
+    inc         %rax
+    dec         %r9
+    jnz         KeccakP1600_AddBytes_NotAlignedLoop
+    jmp         KeccakP1600_AddBytes_LaneAlignedCheck
+KeccakP1600_AddBytes_LaneAlignedLoop:
+    mov         (%rsi), %r8
+    add         $8, %rsi
+    mov         (%rdx), %rax
+    add         $8, %rdx
+    add         %rdi, %rax
+    xor         %r8, (%rax)
+KeccakP1600_AddBytes_LaneAlignedCheck:
+    sub         $8, %rcx
+    jnc         KeccakP1600_AddBytes_LaneAlignedLoop
+KeccakP1600_AddBytes_LastIncompleteLane:
+    add         $8, %rcx
+    jz          KeccakP1600_AddBytes_Exit
+    mov         (%rdx), %rax
+    add         %rdi, %rax
+KeccakP1600_AddBytes_LastIncompleteLaneLoop:
+    mov         (%rsi), %r8b
+    inc         %rsi
+    xor         %r8b, (%rax)
+    inc         %rax
+    dec         %rcx
+    jnz         KeccakP1600_AddBytes_LastIncompleteLaneLoop
+KeccakP1600_AddBytes_Exit:
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_AddBytes,.-KeccakP1600_AddBytes
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# void KeccakP1600_OverwriteBytes(void *state, const unsigned char *data, unsigned int offset, unsigned int length);
+#                                       %rdi                        %rsi               %rdx                 %rcx
+#
+.ifdef macOS
+.globl  _KeccakP1600_OverwriteBytes
+_KeccakP1600_OverwriteBytes:
+.else
+.globl  KeccakP1600_OverwriteBytes
+.type   KeccakP1600_OverwriteBytes,@function
+KeccakP1600_OverwriteBytes:
+.endif
+.balign 32
+    cmp         $0, %rcx
+    jz          KeccakP1600_OverwriteBytes_Exit
+    mov         %rdx, %rax                              # rax offset in lane
+    and         $0xFFFFFFF8, %edx                       # rdx pointer into state index mapper
+    lea         mapState(%rip), %r9
+    add         %r9, %rdx
+    and         $7, %rax
+    jz          KeccakP1600_OverwriteBytes_LaneAlignedCheck
+    mov         $8, %r9                                 # r9 is (max) length of incomplete lane
+    sub         %rax, %r9
+    cmp         %rcx, %r9
+    cmovae      %rcx, %r9
+    sub         %r9, %rcx                               # length -= length of incomplete lane
+    add         (%rdx), %rax                            # rax = pointer to state lane
+    add         $8, %rdx
+    add         %rdi, %rax
+KeccakP1600_OverwriteBytes_NotAlignedLoop:
+    mov         (%rsi), %r8b
+    inc         %rsi
+    mov         %r8b, (%rax)
+    inc         %rax
+    dec         %r9
+    jnz         KeccakP1600_OverwriteBytes_NotAlignedLoop
+    jmp         KeccakP1600_OverwriteBytes_LaneAlignedCheck
+KeccakP1600_OverwriteBytes_LaneAlignedLoop:
+    mov         (%rsi), %r8
+    add         $8, %rsi
+    mov         (%rdx), %rax
+    add         $8, %rdx
+    add         %rdi, %rax
+    mov         %r8, (%rax)
+KeccakP1600_OverwriteBytes_LaneAlignedCheck:
+    sub         $8, %rcx
+    jnc         KeccakP1600_OverwriteBytes_LaneAlignedLoop
+KeccakP1600_OverwriteBytes_LastIncompleteLane:
+    add         $8, %rcx
+    jz          KeccakP1600_OverwriteBytes_Exit
+    mov         (%rdx), %rax
+    add         %rdi, %rax
+KeccakP1600_OverwriteBytes_LastIncompleteLaneLoop:
+    mov         (%rsi), %r8b
+    inc         %rsi
+    mov         %r8b, (%rax)
+    inc         %rax
+    dec         %rcx
+    jnz         KeccakP1600_OverwriteBytes_LastIncompleteLaneLoop
+KeccakP1600_OverwriteBytes_Exit:
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_OverwriteBytes,.-KeccakP1600_OverwriteBytes
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# void KeccakP1600_OverwriteWithZeroes(void *state, unsigned int byteCount);
+#                                            %rdi                %rsi
+#
+.ifdef macOS
+.globl  _KeccakP1600_OverwriteWithZeroes
+_KeccakP1600_OverwriteWithZeroes:
+.else
+.globl  KeccakP1600_OverwriteWithZeroes
+.type   KeccakP1600_OverwriteWithZeroes,@function
+KeccakP1600_OverwriteWithZeroes:
+.endif
+.balign 32
+    cmp         $0, %rsi
+    jz          KeccakP1600_OverwriteWithZeroes_Exit
+    lea         mapState(%rip), %rdx                          # rdx pointer into state index mapper
+    jmp         KeccakP1600_OverwriteWithZeroes_LaneAlignedCheck
+KeccakP1600_OverwriteWithZeroes_LaneAlignedLoop:
+    mov         (%rdx), %rax
+    add         $8, %rdx
+    add         %rdi, %rax
+    movq        $0, (%rax)
+KeccakP1600_OverwriteWithZeroes_LaneAlignedCheck:
+    sub         $8, %rsi
+    jnc         KeccakP1600_OverwriteWithZeroes_LaneAlignedLoop
+KeccakP1600_OverwriteWithZeroes_LastIncompleteLane:
+    add         $8, %rsi
+    jz          KeccakP1600_OverwriteWithZeroes_Exit
+    mov         (%rdx), %rax
+    add         %rdi, %rax
+KeccakP1600_OverwriteWithZeroes_LastIncompleteLaneLoop:
+    movb        $0, (%rax)
+    inc         %rax
+    dec         %rsi
+    jnz         KeccakP1600_OverwriteWithZeroes_LastIncompleteLaneLoop
+KeccakP1600_OverwriteWithZeroes_Exit:
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_OverwriteWithZeroes,.-KeccakP1600_OverwriteWithZeroes
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# void KeccakP1600_ExtractBytes(const void *state, unsigned char *data, unsigned int offset, unsigned int length);
+#                                           %rdi                  %rsi               %rdx                 %rcx
+#
+.ifdef macOS
+.globl  _KeccakP1600_ExtractBytes
+_KeccakP1600_ExtractBytes:
+.else
+.globl  KeccakP1600_ExtractBytes
+.type   KeccakP1600_ExtractBytes,@function
+KeccakP1600_ExtractBytes:
+.endif
+.balign 32
+    push        %rbx
+    cmp         $0, %rcx
+    jz          KeccakP1600_ExtractBytes_Exit
+    mov         %rdx, %rax                              # rax offset in lane
+    and         $0xFFFFFFF8, %edx                       # rdx pointer into state index mapper
+    lea         mapState(%rip), %r9
+    add         %r9, %rdx
+    and         $7, %rax
+    jz          KeccakP1600_ExtractBytes_LaneAlignedCheck
+    mov         $8, %rbx                                # rbx is (max) length of incomplete lane
+    sub         %rax, %rbx
+    cmp         %rcx, %rbx
+    cmovae      %rcx, %rbx
+    sub         %rbx, %rcx                              # length -= length of incomplete lane
+    mov         (%rdx), %r9
+    add         $8, %rdx
+    add         %rdi, %r9
+    add         %rax, %r9
+KeccakP1600_ExtractBytes_NotAlignedLoop:
+    mov         (%r9), %r8b
+    inc         %r9
+    mov         %r8b, (%rsi)
+    inc         %rsi
+    dec         %rbx
+    jnz         KeccakP1600_ExtractBytes_NotAlignedLoop
+    jmp         KeccakP1600_ExtractBytes_LaneAlignedCheck
+KeccakP1600_ExtractBytes_LaneAlignedLoop:
+    mov         (%rdx), %rax
+    add         $8, %rdx
+    add         %rdi, %rax
+    mov         (%rax), %r8
+    mov         %r8, (%rsi)
+    add         $8, %rsi
+KeccakP1600_ExtractBytes_LaneAlignedCheck:
+    sub         $8, %rcx
+    jnc         KeccakP1600_ExtractBytes_LaneAlignedLoop
+KeccakP1600_ExtractBytes_LastIncompleteLane:
+    add         $8, %rcx
+    jz          KeccakP1600_ExtractBytes_Exit
+    mov         (%rdx), %rax
+    add         %rdi, %rax
+    mov         (%rax), %r8
+KeccakP1600_ExtractBytes_LastIncompleteLaneLoop:
+    mov         %r8b, (%rsi)
+    shr         $8, %r8
+    inc         %rsi
+    dec         %rcx
+    jnz         KeccakP1600_ExtractBytes_LastIncompleteLaneLoop
+KeccakP1600_ExtractBytes_Exit:
+    pop         %rbx
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_ExtractBytes,.-KeccakP1600_ExtractBytes
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# void KeccakP1600_ExtractAndAddBytes(const void *state, const unsigned char *input, unsigned char *output, unsigned int offset, unsigned int length);
+#                                                 %rdi                        %rsi                  %rdx                 %rcx                  %r8
+#
+.ifdef macOS
+.globl  _KeccakP1600_ExtractAndAddBytes
+_KeccakP1600_ExtractAndAddBytes:
+.else
+.globl  KeccakP1600_ExtractAndAddBytes
+.type   KeccakP1600_ExtractAndAddBytes,@function
+KeccakP1600_ExtractAndAddBytes:
+.endif
+.balign 32
+    push        %rbx
+    push        %r10
+    cmp         $0, %r8
+    jz          KeccakP1600_ExtractAndAddBytes_Exit
+    mov         %rcx, %rax                              # rax offset in lane
+    and         $0xFFFFFFF8, %ecx                       # rcx pointer into state index mapper
+    lea         mapState(%rip), %r9
+    add         %r9, %rcx
+    and         $7, %rax
+    jz          KeccakP1600_ExtractAndAddBytes_LaneAlignedCheck
+    mov         $8, %rbx                                # rbx is (max) length of incomplete lane
+    sub         %rax, %rbx
+    cmp         %r8, %rbx
+    cmovae      %r8, %rbx
+    sub         %rbx, %r8                               # length -= length of incomplete lane
+    mov         (%rcx), %r9
+    add         $8, %rcx
+    add         %rdi, %r9
+    add         %rax, %r9
+KeccakP1600_ExtractAndAddBytes_NotAlignedLoop:
+    mov         (%r9), %r10b
+    inc         %r9
+    xor         (%rsi), %r10b
+    inc         %rsi
+    mov         %r10b, (%rdx)
+    inc         %rdx
+    dec         %rbx
+    jnz         KeccakP1600_ExtractAndAddBytes_NotAlignedLoop
+    jmp         KeccakP1600_ExtractAndAddBytes_LaneAlignedCheck
+KeccakP1600_ExtractAndAddBytes_LaneAlignedLoop:
+    mov         (%rcx), %rax
+    add         $8, %rcx
+    add         %rdi, %rax
+    mov         (%rax), %r10
+    xor         (%rsi), %r10
+    add         $8, %rsi
+    mov         %r10, (%rdx)
+    add         $8, %rdx
+KeccakP1600_ExtractAndAddBytes_LaneAlignedCheck:
+    sub         $8, %r8
+    jnc         KeccakP1600_ExtractAndAddBytes_LaneAlignedLoop
+KeccakP1600_ExtractAndAddBytes_LastIncompleteLane:
+    add         $8, %r8
+    jz          KeccakP1600_ExtractAndAddBytes_Exit
+    mov         (%rcx), %rax
+    add         %rdi, %rax
+    mov         (%rax), %r10
+KeccakP1600_ExtractAndAddBytes_LastIncompleteLaneLoop:
+    xor         (%rsi), %r10b
+    inc         %rsi
+    mov         %r10b, (%rdx)
+    inc         %rdx
+    shr         $8, %r10
+    dec         %r8
+    jnz         KeccakP1600_ExtractAndAddBytes_LastIncompleteLaneLoop
+KeccakP1600_ExtractAndAddBytes_Exit:
+    pop         %r10
+    pop         %rbx
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_ExtractAndAddBytes,.-KeccakP1600_ExtractAndAddBytes
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# internal    
 #
 .ifdef macOS
 .else
@@ -195,6 +575,121 @@ __KeccakF1600:
 .ifdef macOS
 .else
 .size   __KeccakF1600,.-__KeccakF1600
+.endif
+
+
+
+.ifdef macOS
+.globl  _KeccakP1600_Permute_24rounds
+_KeccakP1600_Permute_24rounds:
+.else
+.globl  KeccakP1600_Permute_24rounds
+.type   KeccakP1600_Permute_24rounds,@function
+KeccakP1600_Permute_24rounds:
+.endif
+.balign 32
+    lea             rhotates_left+96(%rip),%r8
+    lea             rhotates_right+96(%rip),%r9
+    lea             iotas(%rip),%r10
+    mov             $24,%eax
+    lea             96(%rdi),%rdi
+    vzeroupper
+    vpbroadcastq    -96(%rdi),%ymm0         # load A[5][5]
+    vmovdqu         8+32*0-96(%rdi),%ymm1
+    vmovdqu         8+32*1-96(%rdi),%ymm2
+    vmovdqu         8+32*2-96(%rdi),%ymm3
+    vmovdqu         8+32*3-96(%rdi),%ymm4
+    vmovdqu         8+32*4-96(%rdi),%ymm5
+    vmovdqu         8+32*5-96(%rdi),%ymm6
+    call            __KeccakF1600
+    vmovq           %xmm0,-96(%rdi)
+    vmovdqu         %ymm1,8+32*0-96(%rdi)
+    vmovdqu         %ymm2,8+32*1-96(%rdi)
+    vmovdqu         %ymm3,8+32*2-96(%rdi)
+    vmovdqu         %ymm4,8+32*3-96(%rdi)
+    vmovdqu         %ymm5,8+32*4-96(%rdi)
+    vmovdqu         %ymm6,8+32*5-96(%rdi)
+    vzeroupper
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_Permute_24rounds,.-KeccakP1600_Permute_24rounds
+.endif
+
+.ifdef macOS
+.globl  _KeccakP1600_Permute_12rounds
+_KeccakP1600_Permute_12rounds:
+.else
+.globl  KeccakP1600_Permute_12rounds
+.type   KeccakP1600_Permute_12rounds,@function
+KeccakP1600_Permute_12rounds:
+.endif
+.balign 32
+    lea             rhotates_left+96(%rip),%r8
+    lea             rhotates_right+96(%rip),%r9
+    lea             iotas+12*4*8(%rip),%r10
+    mov             $12,%eax
+    lea             96(%rdi),%rdi
+    vzeroupper
+    vpbroadcastq    -96(%rdi),%ymm0         # load A[5][5]
+    vmovdqu         8+32*0-96(%rdi),%ymm1
+    vmovdqu         8+32*1-96(%rdi),%ymm2
+    vmovdqu         8+32*2-96(%rdi),%ymm3
+    vmovdqu         8+32*3-96(%rdi),%ymm4
+    vmovdqu         8+32*4-96(%rdi),%ymm5
+    vmovdqu         8+32*5-96(%rdi),%ymm6
+    call            __KeccakF1600
+    vmovq           %xmm0,-96(%rdi)
+    vmovdqu         %ymm1,8+32*0-96(%rdi)
+    vmovdqu         %ymm2,8+32*1-96(%rdi)
+    vmovdqu         %ymm3,8+32*2-96(%rdi)
+    vmovdqu         %ymm4,8+32*3-96(%rdi)
+    vmovdqu         %ymm5,8+32*4-96(%rdi)
+    vmovdqu         %ymm6,8+32*5-96(%rdi)
+    vzeroupper
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_Permute_12rounds,.-KeccakP1600_Permute_12rounds
+.endif
+
+.ifdef macOS
+.globl  _KeccakP1600_Permute_Nrounds
+_KeccakP1600_Permute_Nrounds:
+.else
+.globl  KeccakP1600_Permute_Nrounds
+.type   KeccakP1600_Permute_Nrounds,@function
+KeccakP1600_Permute_Nrounds:
+.endif
+.balign 32
+    lea             rhotates_left+96(%rip),%r8
+    lea             rhotates_right+96(%rip),%r9
+    lea             iotas+24*4*8(%rip),%r10
+    mov             %rsi,%rax
+    shl             $2+3,%rsi
+    sub             %rsi, %r10
+    lea             96(%rdi),%rdi
+    vzeroupper
+    vpbroadcastq    -96(%rdi),%ymm0         # load A[5][5]
+    vmovdqu         8+32*0-96(%rdi),%ymm1
+    vmovdqu         8+32*1-96(%rdi),%ymm2
+    vmovdqu         8+32*2-96(%rdi),%ymm3
+    vmovdqu         8+32*3-96(%rdi),%ymm4
+    vmovdqu         8+32*4-96(%rdi),%ymm5
+    vmovdqu         8+32*5-96(%rdi),%ymm6
+    call            __KeccakF1600
+    vmovq           %xmm0,-96(%rdi)
+    vmovdqu         %ymm1,8+32*0-96(%rdi)
+    vmovdqu         %ymm2,8+32*1-96(%rdi)
+    vmovdqu         %ymm3,8+32*2-96(%rdi)
+    vmovdqu         %ymm4,8+32*3-96(%rdi)
+    vmovdqu         %ymm5,8+32*4-96(%rdi)
+    vmovdqu         %ymm6,8+32*5-96(%rdi)
+    vzeroupper
+    ret
+.ifdef macOS
+.else
+.size   KeccakP1600_Permute_Nrounds,.-KeccakP1600_Permute_Nrounds
 .endif
 
 # -----------------------------------------------------------------------------
@@ -376,6 +871,187 @@ KeccakF1600_FastLoop_Absorb_LanesAddLoop:
 .ifdef macOS
 .else
 .size   KeccakF1600_FastLoop_Absorb,.-KeccakF1600_FastLoop_Absorb
+.endif
+
+# -----------------------------------------------------------------------------
+#
+# size_t KeccakP1600_12rounds_FastLoop_Absorb(void *state, unsigned int laneCount, const unsigned char *data, size_t dataByteLen);
+#                                          %rdi                %rsi                            %rdx         %rcx
+#
+.ifdef macOS
+.globl  _KeccakP1600_12rounds_FastLoop_Absorb
+_KeccakP1600_12rounds_FastLoop_Absorb:
+.else
+.globl  KeccakP1600_12rounds_FastLoop_Absorb
+.type   KeccakP1600_12rounds_FastLoop_Absorb,@function
+KeccakP1600_12rounds_FastLoop_Absorb:
+.endif
+.balign 32
+    push            %rbx
+    push            %r10
+    shr             $3, %rcx                # rcx = data length in lanes
+    mov             %rdx, %rbx              # rbx = initial data pointer
+    cmp             %rsi, %rcx
+    jb              KeccakP1600_12rounds_FastLoop_Absorb_Exit
+    vzeroupper
+    cmp             $21, %rsi    
+    jnz             KeccakP1600_12rounds_FastLoop_Absorb_Not21Lanes
+    sub             $21, %rcx
+    lea             rhotates_left+96(%rip),%r8
+    lea             rhotates_right+96(%rip),%r9
+    lea             96(%rdi),%rdi
+    vpbroadcastq    -96(%rdi),%ymm0         # load A[5][5]
+    vmovdqu         8+32*0-96(%rdi),%ymm1
+    vmovdqu         8+32*1-96(%rdi),%ymm2
+    vmovdqu         8+32*2-96(%rdi),%ymm3
+    vmovdqu         8+32*3-96(%rdi),%ymm4
+    vmovdqu         8+32*4-96(%rdi),%ymm5
+    vmovdqu         8+32*5-96(%rdi),%ymm6
+KeccakP1600_12rounds_FastLoop_Absorb_Loop21Lanes:    
+    vpbroadcastq    (%rdx),%ymm7
+    vmovdqu         8(%rdx),%ymm8
+
+    vmovdqa         map2(%rip), %xmm15
+    vpcmpeqd        %ymm14, %ymm14, %ymm14
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm9
+
+    vmovdqa         mask3_21(%rip), %ymm14
+    vpxor           %ymm10, %ymm10, %ymm10
+    vmovdqa         map3(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm10
+
+    vmovdqa         mask4_21(%rip), %ymm14
+    vpxor           %ymm11, %ymm11, %ymm11
+    vmovdqa         map4(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm11
+
+    vmovdqa         mask5_21(%rip), %ymm14
+    vpxor           %ymm12, %ymm12, %ymm12
+    vmovdqa         map5(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm12
+
+    vmovdqa         mask6_21(%rip), %ymm14
+    vpxor           %ymm13, %ymm13, %ymm13
+    vmovdqa         map6(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm13
+
+    vpxor           %ymm7,%ymm0,%ymm0
+    vpxor           %ymm8,%ymm1,%ymm1
+    vpxor           %ymm9,%ymm2,%ymm2
+    vpxor           %ymm10,%ymm3,%ymm3
+    vpxor           %ymm11,%ymm4,%ymm4
+    vpxor           %ymm12,%ymm5,%ymm5
+    vpxor           %ymm13,%ymm6,%ymm6
+    add             $21*8, %rdx
+    lea             iotas+12*4*8(%rip),%r10
+    mov             $12,%eax
+    call            __KeccakF1600
+    sub             $21, %rcx
+    jnc             KeccakP1600_12rounds_FastLoop_Absorb_Loop21Lanes
+KeccakP1600_12rounds_FastLoop_Absorb_SaveAndExit:
+    vmovq           %xmm0,-96(%rdi)
+    vmovdqu         %ymm1,8+32*0-96(%rdi)
+    vmovdqu         %ymm2,8+32*1-96(%rdi)
+    vmovdqu         %ymm3,8+32*2-96(%rdi)
+    vmovdqu         %ymm4,8+32*3-96(%rdi)
+    vmovdqu         %ymm5,8+32*4-96(%rdi)
+    vmovdqu         %ymm6,8+32*5-96(%rdi)
+KeccakP1600_12rounds_FastLoop_Absorb_Exit:
+    vzeroupper
+    mov             %rdx, %rax               # return number of bytes processed
+    sub             %rbx, %rax
+    pop             %r10
+    pop             %rbx
+    ret
+KeccakP1600_12rounds_FastLoop_Absorb_Not21Lanes:
+    cmp             $17, %rsi    
+    jnz             KeccakP1600_12rounds_FastLoop_Absorb_Not17Lanes
+    sub             $17, %rcx
+    lea             rhotates_left+96(%rip),%r8
+    lea             rhotates_right+96(%rip),%r9
+    lea             96(%rdi),%rdi
+    vpbroadcastq    -96(%rdi),%ymm0         # load A[5][5]
+    vmovdqu         8+32*0-96(%rdi),%ymm1
+    vmovdqu         8+32*1-96(%rdi),%ymm2
+    vmovdqu         8+32*2-96(%rdi),%ymm3
+    vmovdqu         8+32*3-96(%rdi),%ymm4
+    vmovdqu         8+32*4-96(%rdi),%ymm5
+    vmovdqu         8+32*5-96(%rdi),%ymm6
+KeccakP1600_12rounds_FastLoop_Absorb_Loop17Lanes:    
+    vpbroadcastq    (%rdx),%ymm7
+    vmovdqu         8(%rdx),%ymm8
+
+    vmovdqa         mask2_17(%rip), %ymm14
+    vpxor           %ymm9, %ymm9, %ymm9
+    vmovdqa         map2(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm9
+
+    vmovdqa         mask3_17(%rip), %ymm14
+    vpxor           %ymm10, %ymm10, %ymm10
+    vmovdqa         map3(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm10
+
+    vmovdqa         mask4_17(%rip), %ymm14
+    vpxor           %ymm11, %ymm11, %ymm11
+    vmovdqa         map4(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm11
+
+    vmovdqa         mask5_17(%rip), %ymm14
+    vpxor           %ymm12, %ymm12, %ymm12
+    vmovdqa         map5(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm12
+
+    vmovdqa         mask6_17(%rip), %ymm14
+    vpxor           %ymm13, %ymm13, %ymm13
+    vmovdqa         map6(%rip), %xmm15
+    vpgatherdq      %ymm14, (%rdx, %xmm15, 1), %ymm13
+
+    vpxor           %ymm7,%ymm0,%ymm0
+    vpxor           %ymm8,%ymm1,%ymm1
+    vpxor           %ymm9,%ymm2,%ymm2
+    vpxor           %ymm10,%ymm3,%ymm3
+    vpxor           %ymm11,%ymm4,%ymm4
+    vpxor           %ymm12,%ymm5,%ymm5
+    vpxor           %ymm13,%ymm6,%ymm6
+    add             $17*8, %rdx
+    lea             iotas+12*4*8(%rip),%r10
+    mov             $12,%eax
+    call            __KeccakF1600
+    sub             $17, %rcx
+    jnc             KeccakP1600_12rounds_FastLoop_Absorb_Loop17Lanes
+    jmp             KeccakP1600_12rounds_FastLoop_Absorb_SaveAndExit
+KeccakP1600_12rounds_FastLoop_Absorb_Not17Lanes:
+    lea             mapState(%rip), %r9
+    mov             %rsi, %rax
+KeccakP1600_12rounds_FastLoop_Absorb_LanesAddLoop:
+    mov             (%rdx), %r8
+    add             $8, %rdx
+    mov             (%r9), %r10
+    add             $8, %r9
+    add             %rdi, %r10
+    xor             %r8, (%r10)
+    sub             $1, %rax
+    jnz             KeccakP1600_12rounds_FastLoop_Absorb_LanesAddLoop
+    sub             %rsi, %rcx
+    push            %rdi
+    push            %rsi
+    push            %rdx
+    push            %rcx
+.ifdef macOS
+    call            _KeccakP1600_Permute_12rounds
+.else
+    call            KeccakP1600_Permute_12rounds@PLT
+.endif
+    pop             %rcx
+    pop             %rdx
+    pop             %rsi
+    pop             %rdi
+    cmp             %rsi, %rcx
+    jae             KeccakP1600_12rounds_FastLoop_Absorb_Not17Lanes
+    jmp             KeccakP1600_12rounds_FastLoop_Absorb_Exit
+.ifdef macOS
+.else
+.size   KeccakP1600_12rounds_FastLoop_Absorb,.-KeccakP1600_12rounds_FastLoop_Absorb
 .endif
 
 .equ    ALLON,        0xFFFFFFFFFFFFFFFF
